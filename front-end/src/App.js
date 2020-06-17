@@ -8,7 +8,7 @@ function App() {
 
 
     const [projects, setProjects] = useState([]);
-
+//Realiza a busca dos dados referente a requisição do tipo get do back-end.
     useEffect(() => {
         api.get('/projects').then(response => {
             console.log(response.data);
@@ -17,11 +17,25 @@ function App() {
         })
     }, []);
 
-    function handleAddProject() {
+    async function handleAddProject() {
 
-        setProject([ ...projects, `Novo projeto ${Date.now()}`]);
+        // setProject([ ...projects, `Novo projeto ${Date.now()}`]);
 
         console.log(projects);
+
+        const response = await api.post('project', {
+            title: `Novo projeto ${Date.now()}`,
+            owner: 'Douglas'
+        });
+
+        //armazena o valor que veio da requisição(body);
+        const project = response.data;
+
+        /**
+         * faz uma copia do array existente utilizando o operador spreead e no final adiciona o valor que teve de retorno
+         * da requisição
+         */
+        setProjects([...projects, project]);
     }
 
     return (
