@@ -1,10 +1,12 @@
+const cors = require ('cors');
 const express = require('express');
 const { uuid, isUuid } = require('uuidv4');
 const app = express();
 
 app.use(logRequest);
 app.use('/projects/:id', validateProjectId);
-
+app.use(express.json());
+app.use(cors());
 const array = ['Douglas', 'Fernand', 'Lisboa'];
 
 
@@ -33,8 +35,8 @@ function validateProjectId(request, response, next) {
 
 
 app.post('/project', (request, response) => {
-    
-    const { title, owner } = request.body
+
+    const { title, owner } = request.body;
 
     const project = { id: uuid(), title, owner };
     
