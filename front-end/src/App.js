@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
-// import { useState } from 'react';
+import './App.css';
+import backgroundImage from './assets/so-agradece.jpg';
 
 function App() {
     const [projects, setProject] = useState(['Desenvolvimento de app', 'Front-end web']);
 
     function handleAddProject() {
-        projects.push(`Novo projeto ${Date.now()}`);
+
+        setProject([ ...projects, `Novo projeto ${Date.now()}`]);
 
         console.log(projects);
     }
@@ -14,6 +16,8 @@ function App() {
     return (
     <>
         <Header title="Projects"/>
+
+        <img width={500} src={backgroundImage}/>
 
         <ul>
             {projects.map(project => <li key={project}>{project}</li>)}
